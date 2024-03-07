@@ -7,7 +7,7 @@ HELP_GENERATOR = mh
 
 .PHONY: help
 help:
-	@$(HELP_GENERATOR) -f $(MAKEFILE_LIST) $(target) 2>/dev/null || echo install mh from: https://github.com/oz123/mh/releases/tag/v1.0.1
+	@$(HELP_GENERATOR) -f $(MAKEFILE_LIST) $(target) 2>/dev/null || echo install mh from: https://github.com/roelfdiedericks/mh/releases/tag/v1.0.1
 ifndef target
 	@type -P $(HELP_GENERATOR)>/dev/null && (echo ""; echo "Use \`make help target=foo\` to learn more about foo.")
 endif
@@ -23,14 +23,14 @@ coredns-unzip: ## unzip coredns distribution
 
 .PHONY: coredns-patch-go.mod
 coredns-patch-go.mod:  ## patch coredns to local compile
-	grep netbox-plugin coredns-$(VERSION)/go.mod || echo 'replace github.com/oz123/coredns-netbox-plugin =>' $(CURDIR) >> coredns-$(VERSION)/go.mod
-	grep netbox-plugin coredns-$(VERSION)/go.mod || echo 'netbox:github.com/oz123/coredns-netbox-plugin' >> coredns-$(VERSION)/plugin.cfg
+	grep netbox-plugin coredns-$(VERSION)/go.mod || echo 'replace github.com/roelfdiedericks/coredns-netbox-plugin =>' $(CURDIR) >> coredns-$(VERSION)/go.mod
+	grep netbox-plugin coredns-$(VERSION)/go.mod || echo 'netbox:github.com/roelfdiedericks/coredns-netbox-plugin' >> coredns-$(VERSION)/plugin.cfg
 
 .PHONY: coredns-build
 coredns-build:  ## build local coredns with the plugin installed
-	#go get github.com/oz123/coredns-netbox-plugin
+	#go get github.com/roelfdiedericks/coredns-netbox-plugin
 	#go get github.com/coredns/coredns/plugin/etcd
-	#cd coredns-1.8.4/ && go get github.com/oz123/coredns-netbox-plugin
+	#cd coredns-1.8.4/ && go get github.com/roelfdiedericks/coredns-netbox-plugin
 	make -C coredns-$(VERSION)/
 
 .PHONY: coredns-run ## run the compiled version with plugin
